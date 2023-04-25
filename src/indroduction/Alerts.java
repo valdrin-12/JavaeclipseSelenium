@@ -41,7 +41,7 @@ public class Alerts {
 			e.printStackTrace();
 		}
 
-		Assert.isTrue(false, text, args);
+		//Assert.isTrue(false, text, args);
 
 		driver.switchTo().alert().accept();
 
