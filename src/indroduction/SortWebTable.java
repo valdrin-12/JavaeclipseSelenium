@@ -11,46 +11,62 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class SortWebTable {
 
-    public static void main(String[] args) throws InterruptedException {
-        System.setProperty("webdriver.chrome.driver",
-                "/Users/macbookpro/Downloads/chromedriver_mac64 (1)/chromedriver");
-        WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        driver.get("https://rahulshettyacademy.com/seleniumPractise/#/offers");
+	public static void main(String[] args) throws InterruptedException {
+	    
+	    // Setting up the webdriver path
+	    System.setProperty("webdriver.chrome.driver",
+	            "/Users/macbookpro/Downloads/chromedriver_mac64 (1)/chromedriver");
+	    
+	    // Creating a new instance of ChromeDriver
+	    WebDriver driver = new ChromeDriver();
+	    
+	    // Setting implicit wait for 10 seconds
+	    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+	    
+	    // Navigating to the specified URL
+	    driver.get("https://rahulshettyacademy.com/seleniumPractise/#/offers");
 
-        // click column
-        driver.findElement(By.xpath("//tr/th[1]")).click();
+	    // Clicking on the first column to sort the table
+	    driver.findElement(By.xpath("//tr/th[1]")).click();
 
-        // capture web elements into list
-        List<WebElement> rows = driver.findElements(By.xpath("//tr/td[1]"));
+	    // Capturing all the rows of the table in a list
+	    List<WebElement> rows = driver.findElements(By.xpath("//tr/td[1]"));
 
-        // capture all webelements into original list with streams method
-        List<String> originalList = rows.stream().map(s -> s.getText()).collect(Collectors.toList());
+	    // Converting the list of WebElements to a list of strings using stream method
+	    List<String> originalList = rows.stream().map(s -> s.getText()).collect(Collectors.toList());
 
-        // apply sorting
-        List<String> sortedList = originalList.stream().sorted().collect(Collectors.toList());
+	    // Sorting the originalList and creating a new sorted list
+	    List<String> sortedList = originalList.stream().sorted().collect(Collectors.toList());
 
-        // compare original list with sorted list
-        // Assert.assertTrue(originalList.equals(sortedList));
+	    // Comparing the original list with the sorted list (this line is commented out)
+	    // Assert.assertTrue(originalList.equals(sortedList));
 
-        // scan the name of column with get text, and print the price
-        List<String> price;
-        do {
-            // Re-fetch rows
-            rows = driver.findElements(By.xpath("//tr/td[1]"));
-            price = rows.stream().filter(s -> s.getText().contains("Strawberry")).map(s -> getPrice(s))
-                    .collect(Collectors.toList());
-            price.forEach(a -> System.out.println(a));
-            if (price.size() < 1) {
-                driver.findElement(By.cssSelector("[aria-label='Next']")).click();
-            }
-        } while (price.size() < 1);
+	    // Scanning the name of column with getText() method and printing the price
+	    List<String> price;
+	    do {
+	        // Re-fetching rows
+	        rows = driver.findElements(By.xpath("//tr/td[1]"));
+	        
+	        // Filtering out only those rows that contain "Strawberry" and mapping them to their corresponding price
+	        price = rows.stream().filter(s -> s.getText().contains("Strawberry")).map(s -> getPrice(s))
+	                .collect(Collectors.toList());
+	        
+	        // Printing the prices of strawberries
+	        price.forEach(a -> System.out.println(a));
+	        
+	        // If the size of the price list is less than 1, click on the "Next" button to fetch the next set of rows
+	        if (price.size() < 1) {
+	            driver.findElement(By.cssSelector("[aria-label='Next']")).click();
+	        }
+	    } while (price.size() < 1);
 
-        driver.quit();
-    }
+	    // Quitting the driver
+	    driver.quit();
+	}
 
-    private static String getPrice(WebElement s) {
-        String priceValue = s.findElement(By.xpath("following-sibling::td[1]")).getText();
-        return priceValue;
-    }
+	// A private helper method that returns the price of a given row
+	private static String getPrice(WebElement s) {
+	    String priceValue = s.findElement(By.xpath("following-sibling::td[1]")).getText();
+	    return priceValue;
+	}
 }
