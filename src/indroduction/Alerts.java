@@ -27,7 +27,7 @@ public class Alerts {
 		// System.setProperty("webdriver.chrome.driver", "C://chromedriver.exe");
 
 		// WebDriver driver = new ChromeDriver();
-
+//jjjjjj
 		driver.findElement(By.id("name")).sendKeys(text);
 
 		driver.findElement(By.cssSelector("[id='alertbtn']")).click();
