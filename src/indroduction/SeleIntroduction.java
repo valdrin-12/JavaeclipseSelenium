@@ -13,6 +13,7 @@ public class SeleIntroduction {
 		driver.get("https://rahulshettyacademy.com/loginpagePractise/");
 		System.out.println(driver.getTitle());
 		System.out.println(driver.getCurrentUrl());
+		
 	//	driver.close();
 		
 		

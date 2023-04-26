@@ -43,6 +43,7 @@ public class Scope {
 			Thread.sleep(5000L);
 		}
 		
+		
 		// Opens all the tabs
 		Set<String> windows = driver.getWindowHandles();
 		Iterator<String> it = windows.iterator();
