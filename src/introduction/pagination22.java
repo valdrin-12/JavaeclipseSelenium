@@ -1,5 +1,3 @@
-package introduction;
-
 import java.io.File;
 import java.time.Duration;
 import java.util.List;
@@ -14,7 +12,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import com.google.common.io.Files;
 
-public class Pagination2 {
+public class pagination22 {
 
     public static void main(String[] args) {
         System.setProperty("webdriver.chrome.driver", "/Users/macbookpro/Downloads/chromedriver_mac64 (1)/chromedriver");
@@ -23,9 +21,6 @@ public class Pagination2 {
 
         try {
             driver.get("https://rahulshettyacademy.com/seleniumPractise/#/offers");
-            
-           
-
 
             // Click on the first column to sort
             driver.findElement(By.xpath("//tr/th[1]")).click();
@@ -45,16 +40,16 @@ public class Pagination2 {
             } else {
                 System.out.println("The table is not sorted correctly.");
             }
-            
-            File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-	        Files.copy(src, new File("/Users/macbookpro/Desktop/sel/screenshot12.jpg"));
+
+            File src1 = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+            Files.copy(src1, new File("/Users/macbookpro/Desktop/sel/screenshot1.jpg"));
 
             // Print the prices of the products containing the word "Rice"
             List<String> prices;
             do {
                 prices = rows.stream()
                         .filter(row -> row.getText().contains("Rice"))
-                        .map(Pagination2::getPrice)
+                        .map(pagination22::getPrice)
                         .collect(Collectors.toList());
 
                 prices.forEach(System.out::println);
@@ -62,11 +57,8 @@ public class Pagination2 {
                 if (prices.isEmpty()) {
                     driver.findElement(By.cssSelector("[aria-label='Next']")).click();
                     rows = driver.findElements(By.xpath("//tr/td[1]"));
-                    
-                    
                     File src2 = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-        	        Files.copy(src2, new File("/Users/macbookpro/Desktop/sel/screenshot13.jpg"));
-                    
+                    Files.copy(src2, new File("/Users/macbookpro/Desktop/sel/screenshot2.jpg"));
                 }
             } while (prices.isEmpty());
 
@@ -79,6 +71,5 @@ public class Pagination2 {
 
     private static String getPrice(WebElement row) {
         return row.findElement(By.xpath("following-sibling::td[1]")).getText();
-        
     }
 }

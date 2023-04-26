@@ -59,6 +59,8 @@ public class SortWebTable {
 	            driver.findElement(By.cssSelector("[aria-label='Next']")).click();
 	        }
 	    } while (price.size() < 1);
+	    
+	    
 
 	    // Quitting the driver
 	    driver.quit();
